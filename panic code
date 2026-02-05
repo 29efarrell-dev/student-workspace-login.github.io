@@ -1,0 +1,6 @@
+// The "Panic" Redirect
+document.addEventListener('keydown', function(e) {
+    if (e.key === "Escape") { // Change this to any key you want
+        window.location.replace("https://www.google.com/search?q=how+to+format+mla+works+cited");
+    }
+});
