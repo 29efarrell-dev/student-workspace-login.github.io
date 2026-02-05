@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title id="tab-title">Google</title>
+    <link rel="icon" id="tab-icon" href="https://www.google.com/favicon.ico">
+    <style>
+        :root {
+            --bg: #121212;
+            --accent: #34a853; /* Google Green for stealth */
+            --card: #1e1e1e;
+        }
+
+        body {
+            background: var(--bg);
+            color: white;
+            font-family: 'Segoe UI', sans-serif;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        /* --- THE STEALTH BAR --- */
+        .toolbar {
+            background: #202124;
+            padding: 10px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #3c4043;
+        }
+
+        .btn {
+            background: var(--accent);
+            border: none;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        /* --- THE GAME GRID --- */
+        .content {
+            flex: 1;
+            padding: 40px;
+            overflow-y: auto;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 25px;
+        }
+
+        .item {
+            background: var(--card);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid #333;
+            cursor: pointer;
+        }
+
+        .item:hover {
+            transform: scale(1.03);
+            border-color: var(--accent);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+        }
+
+        .preview {
+            height: 120px;
+            background: linear-gradient(45deg, #2b2b2b, #111);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+        }
+
+        .info { padding: 15px; font-weight: 500; }
+    </style>
+</head>
+<body>
+
+    <div class="toolbar">
+        <div><strong>System Console</strong></div>
+        <div>
+            <button class="btn" onclick="cloakTab()">🎭 Mask Tab</button>
+            <button class="btn" style="background: #4285f4;" onclick="launchBlank()">🚀 Launch Clear</button>
+        </div>
+    </div>
+
+    <div class="content">
+        <h2 style="margin-top:0">Resource Library</h2>
+        <div class="grid" id="app-grid">
+            </div>
+    </div>
+
+    <script>
+        // 1. DATA (Encoded or generic names to avoid filter triggers)
+        const apps = [
+            { id: "g1", name: "Simulation_01", icon: "🚀", url: "https://example.com/game1" },
+            { id: "g2", name: "Logic_Engine", icon: "🧩", url: "https://example.com/game2" },
+            { id: "g3", name: "Vector_Physics", icon: "🏎️", url: "https://example.com/game3" }
+        ];
+
+        const grid = document.getElementById('app-grid');
+        apps.forEach(app => {
+            grid.innerHTML += `
+                <div class="item" onclick="openApp('${app.url}')">
+                    <div class="preview">${app.icon}</div>
+                    <div class="info">${app.name}</div>
+                </div>
+            `;
+        });
+
+        // 2. CLOAKING LOGIC
+        function cloakTab() {
+            document.getElementById('tab-title').innerText = "Google Classroom";
+            document.getElementById('tab-icon').href = "https://ssl.gstatic.com/classroom/favicon.png";
+            alert("Tab Identity Obfuscated.");
+        }
+
+        // 3. THE ABOUT:BLANK LAUNCHER
+        function launchBlank() {
+            const win = window.open();
+            if (!win || win.closed) {
+                alert("Popup Blocked! Please allow popups for testing.");
+                return;
+            }
+            
+            const url = window.location.href;
+            const style = "margin:0; height:100vh; width:100vw; overflow:hidden;";
+            
+            win.document.body.innerHTML = `
+                <iframe src="${url}" style="border:none; width:100%; height:100%;" frameborder="0"></iframe>
+            `;
+            win.document.body.style = style;
+            
+            // Redirect current page to something boring
+            window.location.replace("https://www.wikipedia.org");
+        }
+
+        function openApp(url) {
+            console.log("Loading module: " + url);
+            // In a real app, this would load the game into a fullscreen iframe
+        }
+    </script>
+</body>
+</html>
