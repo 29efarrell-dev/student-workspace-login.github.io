@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Mathematics Framework - Unit 4</title>
+    <link rel="icon" href="https://www.gstatic.com/education/classroom/favicon.png">
+    
+    <style>
+        :root {
+            --sys-bg: #f8f9fa; /* Light theme for "School" look */
+            --sys-text: #202124;
+            --sys-accent: #1a73e8;
+        }
+
+        /* Stealth Mode: Looks like a boring document until unlocked */
+        body { 
+            background: var(--sys-bg); 
+            color: var(--sys-text); 
+            font-family: 'Times New Roman', serif; 
+            margin: 0; padding: 40px; 
+        }
+
+        #secure-layer { display: none; } /* Hidden by default */
+        
+        .panic-active { display: none !important; }
+
+        .module-card {
+            border: 1px solid #dadce0;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+            background: white;
+            cursor: pointer;
+        }
+
+        .sys-btn {
+            background: var(--sys-accent);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="decoy-ui">
+        <h1>Educational Resource Database</h1>
+        <hr>
+        <p>This directory contains archived materials for 2024-2026 academic standards.</p>
+        <div class="module-card">Module 104: Vector Calculation</div>
+        <div class="module-card">Module 209: Logic Gates</div>
+        <br>
+        <button class="sys-btn" onclick="initSystem()">Initialize Environment</button>
+    </div>
+
+    <div id="secure-layer">
+        <h2 style="color:var(--sys-accent)">System Initialized</h2>
+        <div id="payload-container" style="display:grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+            </div>
+    </div>
+
+    <script>
+        // 1. OBFUSCATED DATA (Base64)
+        // This hides titles like "Roblox" or "Minecraft" from the scanner
+        const data_payload = [
+            { id: "MTE0", n: "U2ltdWxhdG9yIDE=", u: "aHR0cHM6Ly9leGFtcGxlLmNvbS9nMQ==" }, // Encoded info
+            { id: "MTE1", n: "TG9naWMgRW5naW5l", u: "aHR0cHM6Ly9leGFtcGxlLmNvbS9nMg==" }
+        ];
+
+        // 2. PANIC KEY (Instant Redirection)
+        document.addEventListener('keydown', (e) => {
+            if (e.key === "~" || e.key === "Escape") {
+                // Instantly sends you to a safe page
+                window.location.replace("https://www.google.com/search?q=calculus+problem+set+solutions");
+            }
+        });
+
+        // 3. DECODER ENGINE
+        function initSystem() {
+            document.getElementById('decoy-ui').style.display = 'none';
+            document.getElementById('secure-layer').style.display = 'block';
+            
+            const container = document.getElementById('payload-container');
+            data_payload.forEach(item => {
+                const name = atob(item.n); // Decodes the name on the fly
+                container.innerHTML += `
+                    <div class="module-card" onclick="launch('${atob(item.u)}')">
+                        <strong>${name}</strong><br>
+                        <small>Status: Ready</small>
+                    </div>
+                `;
+            });
+        }
+
+        // 4. THE "ABOUT:BLANK" LAUNCHER (Hardest for filters to track)
+        function launch(url) {
+            const win = window.open('about:blank', '_blank');
+            win.document.body.style.margin = "0";
+            win.document.body.style.height = "100vh";
+            
+            const frame = win.document.createElement('iframe');
+            frame.style.width = "100%";
+            frame.style.height = "100%";
+            frame.style.border = "none";
+            frame.src = url;
+            
+            win.document.body.appendChild(frame);
+        }
+    </script>
+</body>
+</html>
